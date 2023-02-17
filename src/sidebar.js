@@ -8,7 +8,7 @@ export function sidebarCreate() {
   sidebar.classList.add("sidebar");
   sidebar.textContent = "Welcome, Usama";
   // children of this thing. 
-
+  
   sideMain.appendChild(sidebar);
   body.appendChild(sideMain);
 }

@@ -6,7 +6,7 @@ export default class Todo {
     this.priority = priority;
   }
 
-  displayTodo() {
+  displayTodoMain() {
     const mainBox = document.querySelector(".mainBox");
     
     const element = document.createElement("div"); 
@@ -30,11 +30,15 @@ export default class Todo {
     element.appendChild(dateElement);
     element.appendChild(timeElement);
     element.appendChild(priorityElement);
-
     mainBox.appendChild(element);
   }
 
-  titleReturn() {
-    return this.title;
+  displaySidebar() {
+    const sidebar = document.querySelector(".sidebar");
+    const elementSidebar = document.createElement("div");
+    elementSidebar.classList.add("sidebar-element");
+
+    elementSidebar.textContent = `${this.title}`;
+    sidebar.appendChild(elementSidebar);
   }
 }
