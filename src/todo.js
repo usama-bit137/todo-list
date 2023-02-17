@@ -8,6 +8,7 @@ export default class Todo {
 
   displayTodoMain() {
     const mainBox = document.querySelector(".mainBox");
+    const formGrid = document.querySelector(".form-grid");
     
     const element = document.createElement("div"); 
     const titleElement = document.createElement("div");
@@ -30,7 +31,7 @@ export default class Todo {
     element.appendChild(dateElement);
     element.appendChild(timeElement);
     element.appendChild(priorityElement);
-    mainBox.appendChild(element);
+    mainBox.insertBefore(element, formGrid);
   }
 
   displaySidebar() {

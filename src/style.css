@@ -83,17 +83,17 @@ label {
   align-items: center;
 }
 
-button {
-  background-color: var(--sidebar-color);
-  color: var(--header-color);
-  font-family: 'Orbitron';
-  font-size: 20px;
-  border-radius: 10px;
-}
-
 .radio-button {
   border: 1px solid grey;
   margin: 2px;
   padding: 5px;
   cursor: pointer;
+}
+
+.create-todo {
+  background-color: var(--sidebar-color);
+  color: var(--header-color);
+  font-family: 'Orbitron';
+  font-size: 20px;
+  border-radius: 10px;
 }

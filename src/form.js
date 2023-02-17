@@ -16,6 +16,7 @@ export default function formCreate(){
   inputTitle.setAttribute("type", "text");
   inputTitle.classList.add("title-element");
   inputTitle.classList.add("input-box");
+  inputTitle.setAttribute("id", "title-id");
   formElement.appendChild(inputTitle);
 
   // date: 
@@ -29,6 +30,7 @@ export default function formCreate(){
   inputDate.setAttribute("type", "date");
   inputDate.classList.add("date-element");
   inputDate.classList.add("input-box");
+  inputDate.setAttribute("id", "date-id");
   formElement.appendChild(inputDate);
 
   // time: 
@@ -42,6 +44,7 @@ export default function formCreate(){
   inputTime.setAttribute("type", "time");
   inputTime.classList.add("time-element");
   inputTime.classList.add("input-box");
+  inputTime.setAttribute("id", "time-id");
   formElement.appendChild(inputTime);
 
   // priority:
@@ -70,10 +73,23 @@ export default function formCreate(){
 
   formElement.appendChild(radioBox);
 
-  // button:
+  // button render:
   const createButton = document.createElement("button");
+  createButton.classList.add("create-todo");
   createButton.textContent = "create todo";
+  createButton.setAttribute("type", "button"); 
   formElement.appendChild(createButton);
   
   mainBox.appendChild(formElement);
+}
+
+// eslint-disable-next-line consistent-return
+export function displayRadioValue() {
+  const ele = document.getElementsByName("priority");
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < ele.length; i++){
+    if (ele[i].checked) {
+      return ele[i].value;
+    }
+  }
 }
