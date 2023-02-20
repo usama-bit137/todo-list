@@ -27,5 +27,5 @@ createButton.addEventListener("click", () =>{
     newTodo.displaySidebar();
     newTodo.displayTodoMain(); 
     
-    console.log(myTodo);
+    console.table(myTodo);
 })

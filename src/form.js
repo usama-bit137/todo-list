@@ -66,6 +66,7 @@ export default function formCreate(){
     const input = document.createElement("input");
     input.setAttribute("type", "radio"); 
     input.setAttribute("name", "priority");
+    input.setAttribute("value", radioOptions[item]);
     label.appendChild(input);
     radioBox.appendChild(label);
     label.classList.add("radio-button")
@@ -83,13 +84,12 @@ export default function formCreate(){
   mainBox.appendChild(formElement);
 }
 
-// eslint-disable-next-line consistent-return
 export function displayRadioValue() {
-  const ele = document.getElementsByName("priority");
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < ele.length; i++){
-    if (ele[i].checked) {
-      return ele[i].value;
+  const radioArray = Array.from(document.getElementsByName("priority"));
+  console.log(radioArray);
+  for (let i = 0; i < radioArray.length; i++){
+    if (radioArray[i].checked) {
+      return `${radioArray[i].value}`;
     }
   }
 }
