@@ -12,16 +12,17 @@ sidebarCreate();
 mainCreate();
 formCreate();
 
-const myTodo = [new Todo("homework", "untitled", "20:00", "12/12/2023", "high")];
-myTodo[0].displayTodoMain();
-myTodo[0].displaySidebar();
-
+const myTodo = [new Todo("homework", "untitled", "20:00", "12/12/2023", "high"), new Todo("maths", "homework", "09:00", "12/02/2023", "high"), new Todo("chem", "homework", "08:00", "12/02/2023", "high"), new Todo("physics", "homework", "12:00", "12/03/2023", "high"), new Todo("history", "homework", "10:00", "12/03/2023", "high")];
+for (let j = 0; j < myTodo.length; j++) {
+    myTodo[j].displayTodoMain();
+    myTodo[j].displaySidebar();
+}
 function creationEvent() {
     const createButton = document.querySelector(".create-todo");
     createButton.addEventListener("click", () =>{
         const title = document.getElementById("title-id").value;
         const project = document.getElementById("project-id").value; 
-        const date = format(Date.parse(document.getElementById("date-id").value), "dd/MM/yyyy");
+        const date = document.getElementById("date-id").value;
         const time = document.getElementById("time-id").value;
         const priority = displayRadioValue();
         const newTodo = new Todo(title, project, time, date, priority);
@@ -33,6 +34,8 @@ function creationEvent() {
     })
 }
 creationEvent();
+
+
 
 const dateOrder = document.querySelector(".date-order");
 dateOrder.addEventListener("click", () => { 
