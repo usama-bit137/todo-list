@@ -14,8 +14,12 @@ export function sidebarCreate() {
 
 export function mainCreate() {
   const mainBox = document.createElement("div");
+  const chronoOrder = document.createElement("button")
+  chronoOrder.textContent = "chronological order";
+  chronoOrder.classList.add("date-order");
+  
   mainBox.classList.add("mainBox");
-
+  mainBox.appendChild(chronoOrder);
   sideMain.appendChild(mainBox);
   body.appendChild(sideMain);
 }
