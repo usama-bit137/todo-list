@@ -46,7 +46,7 @@ body {
   padding: 20px;
 }
 
-.title-element, .date-element, .time-element, .priority-element {
+.title-element, .project-element, .date-element, .time-element, .priority-element {
   font-family: 'Orbitron';
   padding-bottom: 10px;
   color: var(--sidebar-color);
@@ -66,6 +66,7 @@ body {
   display: grid;
   grid-template:  repeat(4, 90px) / 150px 300px;
   align-items: center;
+  row-gap: 10px;
 }
 
 label {
@@ -87,10 +88,11 @@ label {
   border: 1px solid grey;
   margin: 2px;
   padding: 5px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.create-todo {
+.create-todo, .date-order {
   background-color: var(--sidebar-color);
   color: var(--header-color);
   font-family: 'Orbitron';

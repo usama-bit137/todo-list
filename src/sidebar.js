@@ -7,7 +7,6 @@ export function sidebarCreate() {
   const sidebar = document.createElement("div");
   sidebar.classList.add("sidebar");
   sidebar.textContent = "Welcome, Usama";
-  // children of this thing. 
   
   sideMain.appendChild(sidebar);
   body.appendChild(sideMain);

@@ -18,7 +18,21 @@ export default function formCreate(){
   inputTitle.classList.add("input-box");
   inputTitle.setAttribute("id", "title-id");
   formElement.appendChild(inputTitle);
-
+  
+  // project:
+  const labelProject = document.createElement("label");
+  labelProject.setAttribute ("for", "project");
+  labelProject.textContent = "project:";
+  labelProject.classList.add("project-element");
+  formElement.appendChild(labelProject);
+  
+  const inputProject = document.createElement("input");
+  inputProject.setAttribute("type", "text");
+  inputProject.classList.add("project-element");
+  inputProject.classList.add("input-box");
+  inputProject.setAttribute("id", "project-id");
+  formElement.appendChild(inputProject);
+  
   // date: 
   const labelDate = document.createElement("label");
   labelDate.setAttribute ("for", "date");
@@ -84,9 +98,11 @@ export default function formCreate(){
   mainBox.appendChild(formElement);
 }
 
+// eslint-disable-next-line consistent-return
 export function displayRadioValue() {
   const radioArray = Array.from(document.getElementsByName("priority"));
   console.log(radioArray);
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < radioArray.length; i++){
     if (radioArray[i].checked) {
       return `${radioArray[i].value}`;
