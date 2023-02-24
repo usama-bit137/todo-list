@@ -92,10 +92,18 @@ label {
   cursor: pointer;
 }
 
-.create-todo, .date-order {
+.button-box {
+  display: flex; 
+}
+
+.create-todo, .date-order, .unorder {
   background-color: var(--sidebar-color);
   color: var(--header-color);
   font-family: 'Orbitron';
   font-size: 20px;
   border-radius: 10px;
+}
+
+.date-order, .unorder {
+  margin: 20px 0px 0px 50px ; 
 }

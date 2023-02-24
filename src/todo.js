@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export default class Todo {
   constructor(title, project, time, date, priority) {
     this.title = title;
@@ -27,7 +29,7 @@ export default class Todo {
    
     titleElement.textContent = `${this.title}`;
     projectElement.textContent = `project: ${this.project}`;
-    dateElement.textContent = `due date: ${this.date}`;
+    dateElement.textContent = `due date: ${format(Date.parse(this.date), "dd/MM/yyyy")}`;
     timeElement.textContent = `time: ${this.time}`;
     priorityElement.textContent = `priority: ${this.priority}`;
 

@@ -14,12 +14,20 @@ export function sidebarCreate() {
 
 export function mainCreate() {
   const mainBox = document.createElement("div");
+  const buttonBox = document.createElement("div");
+  buttonBox.classList.add("button-box");
   const chronoOrder = document.createElement("button")
-  chronoOrder.textContent = "chronological order";
+  chronoOrder.textContent = "oldest-newest";
   chronoOrder.classList.add("date-order");
+
+  const unorder = document.createElement("button");
+  unorder.textContent = "order created";
+  unorder.classList.add("unorder");
   
   mainBox.classList.add("mainBox");
-  mainBox.appendChild(chronoOrder);
+  buttonBox.appendChild(chronoOrder);
+  buttonBox.appendChild(unorder);
+  mainBox.appendChild(buttonBox);
   sideMain.appendChild(mainBox);
   body.appendChild(sideMain);
 }
