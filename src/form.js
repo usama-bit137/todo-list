@@ -101,7 +101,6 @@ export default function formCreate(){
 // eslint-disable-next-line consistent-return
 export function displayRadioValue() {
   const radioArray = Array.from(document.getElementsByName("priority"));
-  console.log(radioArray);
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < radioArray.length; i++){
     if (radioArray[i].checked) {
