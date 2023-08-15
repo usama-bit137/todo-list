@@ -1,0 +1,17 @@
+.todo {
+  list-style-type: none;
+}
+
+.edit,
+.remove {
+  border-radius: 50px;
+  border: 0;
+  background-color: rgb(73, 115, 148);
+  margin: 5px;
+  padding: 5px;
+}
+
+.remove {
+  border: 0;
+  background-color: rgb(172, 79, 79);
+}
