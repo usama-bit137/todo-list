@@ -1,23 +1,9 @@
-import { useState } from "react";
 import "../styles/Form.css";
 
-function Form({ todos, setTodos }) {
-  let [newTodo, setNewTodo] = useState({});
-
-  const handleChange = (e) => {
-    let { name, value } = e.target;
-
-    setNewTodo({ ...newTodo, [name]: value, id: todos.length });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setTodos([...todos, newTodo]);
-  };
-
+function Form({ handleChange, handleSubmit, title, children }) {
   return (
     <form className="form" name="form" onSubmit={handleSubmit}>
-      <h3 className="call-to-action">Add a new Todo:</h3>
+      <h3 className="call-to-action">{title}</h3>
 
       <div className="form--grid--container">
         <div className="form--title">Task: </div>
@@ -47,8 +33,7 @@ function Form({ todos, setTodos }) {
           <option value="High">High</option>
         </select>
       </div>
-
-      <button id="submit">Create Todo</button>
+      {children}
     </form>
   );
 }
