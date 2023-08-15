@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../styles/Todo.css";
+import Form from "./Form.js";
+import ActionButton from "./ActionButton";
 import edit from "../icons/edit.svg";
 import done from "../icons/done.svg";
 import remove from "../icons/remove.svg";
@@ -26,12 +28,18 @@ function Todo({ todo, todos, setTodos }) {
     <DisplayMode
       todo={todo}
       todos={todos}
+      setTodos={setTodos}
       isEdit={isEdit}
       setIsEdit={setIsEdit}
-      setTodos={setTodos}
     />
   ) : (
-    <EditMode todo={todo} isEdit={isEdit} setIsEdit={setIsEdit} />
+    <EditMode
+      todo={todo}
+      todos={todos}
+      setTodos={setTodos}
+      isEdit={isEdit}
+      setIsEdit={setIsEdit}
+    />
   );
 }
 
@@ -39,7 +47,7 @@ function DisplayMode({ todo, todos, isEdit, setIsEdit, setTodos }) {
   const [isActive, setIsActive] = useState(false);
 
   const handleActive = () => {
-    setIsActive(() => !isActive);
+    setIsActive((isActive) => !isActive);
   };
 
   const handleEdit = () => {
@@ -47,34 +55,37 @@ function DisplayMode({ todo, todos, isEdit, setIsEdit, setTodos }) {
   };
 
   const handleRemove = (id) => {
-    alert(`You have removed ${todo.task}`);
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
     console.log(todos);
   };
 
   return (
     <li className="todo">
-      <span onClick={handleActive}>Task: {todo.task}</span>
       <img
         src={dropdown}
-        width="20px"
-        className="dropdown"
+        width="30px"
+        className={`icon ${!isActive && "dropdown--inactive"}`}
         alt={isActive ? "Show Less" : "Show More"}
       />
+      <span onClick={handleActive}>Task: {todo.task}</span>
+
       {isActive && (
         <>
-          <button onClick={handleEdit}>
-            <span style={{ padding: "12px", fontWeight: "600" }}>Edit</span>
-            <img src={edit} width="15px" alt="Edit Todo" />
-          </button>
-          <button
-            onClick={() => {
+          <ActionButton
+            className="edit"
+            image={edit}
+            action={handleEdit}
+            alt="Edit Todo"
+          />
+
+          <ActionButton
+            className="remove"
+            image={remove}
+            action={() => {
               handleRemove(todo.id);
             }}
-          >
-            <span style={{ padding: "12px", fontWeight: "600" }}>Remove</span>
-            <img src={remove} width="15px" alt="Remove Todo" />
-          </button>
+            alt="Remove Todo"
+          />
 
           <h4>Project: {todo.project}</h4>
           <p>Date: {todo.date}</p>
@@ -87,18 +98,25 @@ function DisplayMode({ todo, todos, isEdit, setIsEdit, setTodos }) {
 }
 
 function EditMode({ todo, isEdit, setIsEdit }) {
+  const handleChange = (e) => {};
+
   const handleEdit = () => {
-    setIsEdit(() => !isEdit);
+    setIsEdit((isEdit) => !isEdit);
   };
+
+  const handleSubmit = (e) => {};
   return (
-    <form className="todo--edit">
-      <img src={done} width="30px" onClick={handleEdit} alt="Done" />
-      <input value={todo.task} name="task" />
-      <input value={todo.project} name="project" />
-      <input value={todo.date} name="date" />
-      <input value={todo.time} name="time" />
-      <input value={todo.priority} name="pr" />
-    </form>
+    <>
+      <Form
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        title={`Edit todo: ${todo.task} `}
+      >
+        <ActionButton image={done} alt="Edit Todo" action={handleEdit}>
+          Done
+        </ActionButton>
+      </Form>
+    </>
   );
 }
 
