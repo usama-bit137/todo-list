@@ -2,6 +2,8 @@ import { useState } from "react";
 import Header from "./Header";
 import TodoList from "./TodoList";
 import Form from "./Form";
+import ActionButton from "./ActionButton";
+import done from "../icons/done.svg";
 
 let todosArray = [
   {
@@ -31,14 +33,38 @@ let todosArray = [
 ];
 
 function App() {
-  // at the end, remove the todosArray from here:
   const [todos, setTodos] = useState(todosArray);
+
+  const [newTodo, setNewTodo] = useState({});
+
+  const handleChange = (e) => {
+    let { name, value } = e.target;
+    setNewTodo({ ...newTodo, [name]: value, id: todos.length });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setTodos([...todos, newTodo]);
+  };
   return (
-    <main className="app">
+    <>
       <Header />
       <TodoList todos={todos} setTodos={setTodos} />
-      <Form todos={todos} setTodos={setTodos} />
-    </main>
+      <Form
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        title="Create Todo"
+      >
+        <ActionButton
+          image={done}
+          alt="Create todo"
+          action={() => {}}
+          className="submit"
+        >
+          Create Todo
+        </ActionButton>
+      </Form>
+    </>
   );
 }
 
