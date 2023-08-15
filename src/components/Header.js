@@ -1,7 +1,8 @@
+import "../styles/Header.css";
 function Header() {
   return (
-    <header>
-      <h1>Todo?</h1>
+    <header className="header">
+      <h1 className="header--title">Todo?</h1>
     </header>
   );
 }
