@@ -1,0 +1,29 @@
+form {
+  border: 1px solid black;
+  /* width: 50vw; */
+  margin: 10px;
+  padding: 10px;
+}
+
+.call-to-action {
+  text-align: center;
+}
+
+.form--list {
+  list-style-type: none;
+}
+
+.form--grid--container {
+  display: grid;
+  grid-template-columns: 0.25fr 1fr;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.form--title {
+  font-weight: 600;
+}
+
+#submit {
+  font-weight: 600;
+}
