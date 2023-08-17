@@ -1,17 +1,65 @@
+main {
+  padding: 20px;
+}
 .todo {
   list-style-type: none;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.todo,
+.todo-active {
+  border: 1px solid rgb(213, 213, 213);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
 }
 
 .edit,
 .remove {
   border-radius: 50px;
+  border-radius: 5px;
   border: 0;
-  background-color: rgb(73, 115, 148);
   margin: 5px;
   padding: 5px;
 }
 
 .remove {
   border: 0;
-  background-color: rgb(172, 79, 79);
+}
+
+/* When a todo is active: */
+
+.todo-task {
+  grid-area: todo-task;
+}
+
+.todo-icon {
+  grid-area: todo-icon;
+}
+
+.todo-project {
+  grid-area: todo-project;
+}
+.todo-date {
+  grid-area: todo-date;
+}
+.todo-time {
+  grid-area: todo-time;
+}
+.todo-priority {
+  grid-area: todo-priority;
+}
+
+.todo-active {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  grid-template-rows: repeat(5, 30px);
+  grid-template-areas:
+    "todo-icon todo-task"
+    "todo-icon todo-project"
+    "todo-icon todo-date"
+    "todo-icon todo-time"
+    "todo-icon todo-priority";
 }

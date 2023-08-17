@@ -1,6 +1,6 @@
-form {
-  border: 1px solid black;
-  /* width: 50vw; */
+.form {
+  border: 1px solid rgb(213, 213, 213);
+  border-radius: 5px;
   margin: 10px;
   padding: 10px;
 }
@@ -32,6 +32,13 @@ form {
   border-radius: 4px;
   margin: 10px auto;
   background-color: white;
+}
+
+input,
+select {
+  border: 1px solid rgb(213, 213, 213);
+  text-indent: 4px;
+  border-radius: 3px;
 }
 
 .icon {
