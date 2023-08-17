@@ -1,11 +1,13 @@
 main {
   padding: 20px;
 }
+
 .todo {
   list-style-type: none;
   display: flex;
   align-items: center;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .todo,
@@ -54,12 +56,12 @@ main {
 
 .todo-active {
   display: grid;
+  cursor: pointer;
   grid-template-columns: 30px 1fr;
-  grid-template-rows: repeat(5, 30px);
+  grid-template-rows: repeat(4, 30px);
   grid-template-areas:
     "todo-icon todo-task"
     "todo-icon todo-project"
-    "todo-icon todo-date"
-    "todo-icon todo-time"
+    "todo-icon todo-date-time"
     "todo-icon todo-priority";
 }
