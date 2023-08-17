@@ -7,18 +7,65 @@ import done from "../icons/done.svg";
 import remove from "../icons/remove.svg";
 import dropdown from "../icons/dropdown.svg";
 
+function HTMLDatetoJSDate(dateString, timeString) {
+  let dateArray = dateString.split("-");
+  dateArray[1] = dateArray[1] * 1 - 1;
+  return new Date(...dateArray, ...timeString.split(":"));
+}
+
+function priorityHashMap(priority) {
+  if (priority === "Low") return 0;
+  if (priority === "Medium") return 1;
+  if (priority === "High") return 2;
+}
+
 function TodoList({ todos, setTodos }) {
+  const [sortBy, setSortBy] = useState("reversed");
+  let sortedTodos;
+
+  if (sortBy === "created") sortedTodos = todos.sort((a, b) => a.id - b.id);
+  if (sortBy === "reversed")
+    sortedTodos = todos.sort((a, b) => a.id - b.id).reverse();
+  if (sortBy === "project")
+    sortedTodos = todos.sort((a, b) => a.project.localeCompare(b.project));
+  if (sortBy === "priority")
+    sortedTodos = todos.sort(
+      (a, b) => priorityHashMap(b.priority) - priorityHashMap(a.priority)
+    );
+  if (sortBy === "datetime")
+    sortedTodos = todos.sort(
+      (a, b) =>
+        HTMLDatetoJSDate(a.date, a.time) - HTMLDatetoJSDate(b.date, b.time)
+    );
+
+  console.log(sortedTodos);
+
   return (
-    <>
-      <h2>Current Todos</h2>
+    <main className="all-todos">
+      <div>
+        <span>Sort Todos by: </span>
+        <select onChange={(e) => setSortBy(e.target.value)}>
+          <option value="reversed">Newest-Oldest</option>
+          <option value="created">Oldest-Newest</option>
+          <option value="project">Project</option>
+          <option value="datetime">Deadline</option>
+          <option value="priority">Priority</option>
+        </select>
+      </div>
+      <h2 className="todos--title">Current Todos</h2>
       <ul className="todos">
-        {todos.map((todo) => {
+        {sortedTodos.map((todo) => {
           return (
-            <Todo key={todo.id} todos={todos} todo={todo} setTodos={setTodos} />
+            <Todo
+              todos={sortedTodos}
+              todo={todo}
+              setTodos={setTodos}
+              key={todo.id}
+            />
           );
         })}
       </ul>
-    </>
+    </main>
   );
 }
 
@@ -60,59 +107,85 @@ function DisplayMode({ todo, todos, isEdit, setIsEdit, setTodos }) {
   };
 
   return (
-    <li className="todo">
+    <li className={isActive ? "todo-active" : "todo"}>
       <img
         src={dropdown}
         width="30px"
-        className={`icon ${!isActive && "dropdown--inactive"}`}
+        className={`icon todo-icon ${!isActive && "dropdown--inactive"}`}
         alt={isActive ? "Show Less" : "Show More"}
       />
-      <span onClick={handleActive}>Task: {todo.task}</span>
 
+      <div className="todo-task">
+        <span onClick={handleActive}>
+          Task: {todo.task} {!isActive && <small>Due: {todo.date}</small>}
+        </span>
+
+        {isActive && (
+          <>
+            <ActionButton
+              className="edit"
+              image={edit}
+              imageWidth="12px"
+              action={handleEdit}
+              alt="Edit Todo"
+            />
+
+            <ActionButton
+              className="remove"
+              image={remove}
+              imageWidth="12px"
+              action={() => {
+                handleRemove(todo.id);
+              }}
+              alt="Remove Todo"
+            />
+          </>
+        )}
+      </div>
       {isActive && (
         <>
-          <ActionButton
-            className="edit"
-            image={edit}
-            action={handleEdit}
-            alt="Edit Todo"
-          />
-
-          <ActionButton
-            className="remove"
-            image={remove}
-            action={() => {
-              handleRemove(todo.id);
-            }}
-            alt="Remove Todo"
-          />
-
-          <h4>Project: {todo.project}</h4>
-          <p>Date: {todo.date}</p>
-          <p>Time: {todo.time}</p>
-          <p>Priority: {todo.priority}</p>
+          <p className="todo-project">Project: {todo.project}</p>
+          <p className="todo-time">Time: {todo.time}</p>
+          <p className="todo-date">Due: {todo.date}</p>
+          <p className="todo-priority">Priority: {todo.priority}</p>
         </>
       )}
     </li>
   );
 }
 
-function EditMode({ todo, isEdit, setIsEdit }) {
-  const handleChange = (e) => {};
+function EditMode({ todo, todos, setTodos, isEdit, setIsEdit }) {
+  const [editTodo, setEditTodo] = useState(todo);
 
-  const handleEdit = () => {
-    setIsEdit((isEdit) => !isEdit);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditTodo({ ...editTodo, [name]: value });
   };
 
-  const handleSubmit = (e) => {};
+  const handleEdit = () => {
+    setIsEdit(() => !isEdit);
+  };
+
+  const handleSubmit = (e, todos, id) => {
+    e.preventDefault();
+    setTodos((todos) => todos.filter((item) => item.id !== id));
+  };
   return (
     <>
       <Form
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
+        onSubmit={() => {
+          handleSubmit(todos, editTodo.id);
+        }}
+        onChange={handleChange}
         title={`Edit todo: ${todo.task} `}
+        defaultObj={editTodo}
       >
-        <ActionButton image={done} alt="Edit Todo" action={handleEdit}>
+        <ActionButton
+          image={done}
+          imageWidth="12px"
+          alt="Edit Todo"
+          action={handleEdit}
+        >
           Done
         </ActionButton>
       </Form>
