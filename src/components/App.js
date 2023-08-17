@@ -45,12 +45,19 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setTodos([
+      ...todos,
+      {
+        ...newTodo,
+      },
+    ]);
+
+    // Fixes a but where if spams the create button,
+    // it will increment the id
     setNewTodo({
       ...newTodo,
-      date: newTodo.date.split("/").reverse().join("-"),
+      id: newTodo.id + 1,
     });
-
-    setTodos([...todos, newTodo]);
   };
 
   return (
