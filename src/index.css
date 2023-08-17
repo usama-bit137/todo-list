@@ -20,7 +20,8 @@ h6 {
 div,
 span,
 p,
-input {
+input,
+select {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
