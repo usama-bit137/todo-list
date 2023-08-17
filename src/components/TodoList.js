@@ -43,17 +43,21 @@ function TodoList({ todos, setTodos }) {
 
   return (
     <main className="all-todos">
-      <div>
-        <span>Sort Todos by: </span>
-        <select onChange={(e) => setSortBy(e.target.value)}>
-          <option value="reversed">Newest-Oldest</option>
-          <option value="created">Oldest-Newest</option>
-          <option value="project">Project</option>
-          <option value="datetime">Deadline</option>
-          <option value="priority">Priority</option>
-        </select>
+      <div className="all-todos--title">
+        <div>
+          <h1 className="todos--title">what todo?</h1>
+        </div>
+        <div>
+          <span>sort todos </span>
+          <select onChange={(e) => setSortBy(e.target.value)}>
+            <option value="reversed">Newest-Oldest</option>
+            <option value="created">Oldest-Newest</option>
+            <option value="project">Project</option>
+            <option value="datetime">Deadline</option>
+            <option value="priority">Priority</option>
+          </select>
+        </div>
       </div>
-      <h2 className="todos--title">Current Todos</h2>
       <ul className="todos">
         {sortedTodos.map((todo) => {
           return (
