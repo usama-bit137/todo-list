@@ -1,7 +1,9 @@
 import "../styles/Header.css";
+import logo from "../icons/logo.svg";
 function Header() {
   return (
-    <header className="header">
+    <header id="header">
+      <img src={logo} width="50px" className="header--logo" alt="Todo? logo" />
       <h1 className="header--title">Todo?</h1>
     </header>
   );
