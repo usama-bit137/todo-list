@@ -1,6 +1,10 @@
 function ActionButton({ action, children, image, imageWidth, alt, className }) {
   return (
-    <button onClick={action} className={className}>
+    <button
+      style={{ cursor: "pointer" }}
+      onClick={action}
+      className={className}
+    >
       <span style={{ padding: 0 }}>{children}</span>
       <img
         src={image}
