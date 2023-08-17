@@ -10,25 +10,25 @@ let todosArray = [
     id: 0,
     task: "Chemistry Homework",
     project: "Homework",
-    date: "12/12/2023",
+    date: "2023-12-12",
     time: "12:00",
-    priority: "Hard",
+    priority: "Medium",
   },
   {
     id: 1,
     task: "Physics Homework",
     project: "Homework",
-    date: "12/12/2023",
+    date: "2023-12-10",
     time: "12:00",
-    priority: "Hard",
+    priority: "High",
   },
   {
     id: 2,
     task: "History Homework",
     project: "Homework",
-    date: "12/12/2023",
+    date: "2023-12-09",
     time: "12:00",
-    priority: "Hard",
+    priority: "Low",
   },
 ];
 
@@ -44,19 +44,23 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setNewTodo({
+      ...newTodo,
+      date: newTodo.date.split("/").reverse().join("-"),
+    });
+
     setTodos([...todos, newTodo]);
   };
+
   return (
     <>
       <Header />
       <TodoList todos={todos} setTodos={setTodos} />
-      <Form
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        title="Create Todo"
-      >
+      <Form onChange={handleChange} onSubmit={handleSubmit} title="Create Todo">
         <ActionButton
           image={done}
+          imageWidth="25px"
           alt="Create todo"
           action={() => {}}
           className="submit"
