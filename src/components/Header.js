@@ -4,7 +4,7 @@ function Header() {
   return (
     <header id="header">
       <img src={logo} width="50px" className="header--logo" alt="Todo? logo" />
-      <h1 className="header--title">Todo?</h1>
+      <h1 className="header--title">todo?</h1>
     </header>
   );
 }
