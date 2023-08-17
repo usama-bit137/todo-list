@@ -7,7 +7,7 @@ import done from "../icons/done.svg";
 import remove from "../icons/remove.svg";
 import dropdown from "../icons/dropdown.svg";
 
-function HTMLDatetoJSDate(dateString, timeString) {
+function HTMLtoJSDate(dateString, timeString) {
   let dateArray = dateString.split("-");
   dateArray[1] = dateArray[1] * 1 - 1;
   return new Date(...dateArray, ...timeString.split(":"));
@@ -24,21 +24,22 @@ function TodoList({ todos, setTodos }) {
   let sortedTodos;
 
   if (sortBy === "created") sortedTodos = todos.sort((a, b) => a.id - b.id);
+
   if (sortBy === "reversed")
     sortedTodos = todos.sort((a, b) => a.id - b.id).reverse();
+
   if (sortBy === "project")
     sortedTodos = todos.sort((a, b) => a.project.localeCompare(b.project));
+
   if (sortBy === "priority")
     sortedTodos = todos.sort(
       (a, b) => priorityHashMap(b.priority) - priorityHashMap(a.priority)
     );
+
   if (sortBy === "datetime")
     sortedTodos = todos.sort(
-      (a, b) =>
-        HTMLDatetoJSDate(a.date, a.time) - HTMLDatetoJSDate(b.date, b.time)
+      (a, b) => HTMLtoJSDate(a.date, a.time) - HTMLtoJSDate(b.date, b.time)
     );
-
-  console.log(sortedTodos);
 
   return (
     <main className="all-todos">
@@ -103,11 +104,10 @@ function DisplayMode({ todo, todos, isEdit, setIsEdit, setTodos }) {
 
   const handleRemove = (id) => {
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
-    console.log(todos);
   };
 
   return (
-    <li className={isActive ? "todo-active" : "todo"}>
+    <li onClick={handleActive} className={isActive ? "todo-active" : "todo"}>
       <img
         src={dropdown}
         width="30px"
@@ -116,8 +116,17 @@ function DisplayMode({ todo, todos, isEdit, setIsEdit, setTodos }) {
       />
 
       <div className="todo-task">
-        <span onClick={handleActive}>
-          Task: {todo.task} {!isActive && <small>Due: {todo.date}</small>}
+        <span>
+          Task: {todo.task}{" "}
+          {!isActive && (
+            <>
+              |{" "}
+              <small>
+                Due:{" "}
+                {`${HTMLtoJSDate(todo.date, todo.time).toLocaleDateString()}`}
+              </small>
+            </>
+          )}
         </span>
 
         {isActive && (
@@ -145,8 +154,16 @@ function DisplayMode({ todo, todos, isEdit, setIsEdit, setTodos }) {
       {isActive && (
         <>
           <p className="todo-project">Project: {todo.project}</p>
-          <p className="todo-time">Time: {todo.time}</p>
-          <p className="todo-date">Due: {todo.date}</p>
+          <p className="todo-date-time">
+            Due:{" "}
+            {`${HTMLtoJSDate(
+              todo.date,
+              todo.time
+            ).toDateString()} @ ${HTMLtoJSDate(
+              todo.date,
+              todo.time
+            ).toLocaleTimeString()}`}
+          </p>
           <p className="todo-priority">Priority: {todo.priority}</p>
         </>
       )}
@@ -154,7 +171,7 @@ function DisplayMode({ todo, todos, isEdit, setIsEdit, setTodos }) {
   );
 }
 
-function EditMode({ todo, todos, setTodos, isEdit, setIsEdit }) {
+function EditMode({ todo, setTodos, isEdit, setIsEdit }) {
   const [editTodo, setEditTodo] = useState(todo);
 
   const handleChange = (e) => {
@@ -166,26 +183,25 @@ function EditMode({ todo, todos, setTodos, isEdit, setIsEdit }) {
     setIsEdit(() => !isEdit);
   };
 
-  const handleSubmit = (e, todos, id) => {
-    e.preventDefault();
-    setTodos((todos) => todos.filter((item) => item.id !== id));
+  const handleSubmit = (id) => {
+    setTodos((todos) => [editTodo, ...todos.filter((item) => item.id !== id)]);
   };
+
   return (
     <>
       <Form
         onSubmit={() => {
-          handleSubmit(todos, editTodo.id);
+          handleEdit();
+          handleSubmit(editTodo.id);
         }}
         onChange={handleChange}
         title={`Edit todo: ${todo.task} `}
         defaultObj={editTodo}
+        action={() => {
+          return;
+        }}
       >
-        <ActionButton
-          image={done}
-          imageWidth="12px"
-          alt="Edit Todo"
-          action={handleEdit}
-        >
+        <ActionButton image={done} imageWidth="12px" alt="Edit Todo">
           Done
         </ActionButton>
       </Form>
