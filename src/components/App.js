@@ -1,41 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./Header";
 import TodoList from "./TodoList";
 import Form from "./Form";
 import ActionButton from "./ActionButton";
 import done from "../icons/done.svg";
 
-let todosArray = [
-  {
-    id: 0,
-    task: "Chemistry Homework",
-    project: "Homework",
-    date: "2023-12-12",
-    time: "12:00",
-    priority: "Medium",
-  },
-  {
-    id: 1,
-    task: "Physics Homework",
-    project: "Homework",
-    date: "2023-12-10",
-    time: "12:00",
-    priority: "High",
-  },
-  {
-    id: 2,
-    task: "History Homework",
-    project: "Homework",
-    date: "2023-12-09",
-    time: "12:00",
-    priority: "Low",
-  },
-];
-
 function App() {
-  const [todos, setTodos] = useState(todosArray);
-
+  const [todos, setTodos] = useState(() => {
+    const savedTodos = localStorage.getItem("my-todos");
+    const initialValue = JSON.parse(savedTodos);
+    return initialValue;
+  });
   const [newTodo, setNewTodo] = useState({});
+
+  useEffect(() => {
+    const data = localStorage.getItem("my-todos");
+    if (data) setTodos(JSON.parse(data));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("my-todos", JSON.stringify(todos));
+  });
 
   const handleChange = (e) => {
     let { name, value } = e.target;
