@@ -8,10 +8,15 @@ import done from "../icons/done.svg";
 function App() {
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem("my-todos");
-    const initialValue = JSON.parse(savedTodos);
-    return initialValue;
+    if (savedTodos) {
+      const initialValue = JSON.parse(savedTodos);
+      return initialValue;
+    } else {
+      return [];
+    }
   });
-  const [newTodo, setNewTodo] = useState({});
+
+  const [newTodo, setNewTodo] = useState({ priority: "Low" });
 
   useEffect(() => {
     const data = localStorage.getItem("my-todos");
@@ -24,7 +29,12 @@ function App() {
 
   const handleChange = (e) => {
     let { name, value } = e.target;
-    setNewTodo({ ...newTodo, [name]: value, id: todos.length });
+
+    setNewTodo({
+      ...newTodo,
+      [name]: value,
+      id: todos.length,
+    });
   };
 
   const handleSubmit = (e) => {
@@ -37,8 +47,6 @@ function App() {
       },
     ]);
 
-    // Fixes a but where if spams the create button,
-    // it will increment the id
     setNewTodo({
       ...newTodo,
       id: newTodo.id + 1,
@@ -48,18 +56,15 @@ function App() {
   return (
     <>
       <Header />
-      <TodoList todos={todos} setTodos={setTodos} />
-      <Form onChange={handleChange} onSubmit={handleSubmit} title="Create Todo">
-        <ActionButton
-          image={done}
-          imageWidth="25px"
-          alt="Create todo"
-          action={() => {}}
-          className="submit"
-        >
-          Create Todo
-        </ActionButton>
-      </Form>
+
+      <main id="main-content">
+        <TodoList todos={todos} setTodos={setTodos} />
+        <Form onChange={handleChange} onSubmit={handleSubmit} title="todo or not todo">
+          <ActionButton image={done} imageWidth="25px" alt="Create todo" action={() => {}} className="submit">
+            Create Todo
+          </ActionButton>
+        </Form>
+      </main>
     </>
   );
 }
