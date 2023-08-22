@@ -1,5 +1,4 @@
 main {
-  margin: 20px;
   padding: 10px;
 }
 
@@ -8,10 +7,35 @@ main {
 }
 
 .all-todos--title {
+  align-items: center;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.todos--title {
+  margin-bottom: 10px;
+}
+
+.sort-options {
+  padding-left: 20px;
+}
+
+.todos {
+  /* overflow-y: scroll;
+  max-height: 125px; */
+}
+
+.todo-task {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  margin-top: 5px;
+  font-weight: 800;
+}
+
+.button-options {
+  margin-top: 5px;
 }
 
 .todo {
@@ -24,20 +48,24 @@ main {
 
 .todo,
 .todo-active {
-  box-shadow: 0px 1px 5px 1px rgb(213, 213, 213, 213);
+  /* box-shadow: 0px 1px 5px 1px rgb(213, 213, 213, 213); */
+  border: 1px solid rgb(213, 213, 213, 213);
   border-radius: 2px;
   margin: 10px;
 }
 
-.edit,
-.remove {
-  border-radius: 50px;
-  border-radius: 5px;
-  border: 0;
-  margin: 5px;
-  padding: 5px;
+.sorting {
+  width: 125px;
 }
 
+.edit,
+.remove {
+  border-radius: 2rem;
+  border: 0;
+  margin: 5px;
+  width: 2rem;
+  height: 2rem;
+}
 .remove {
   border: 0;
 }
@@ -47,11 +75,9 @@ main {
 .todo-task {
   grid-area: todo-task;
 }
-
 .todo-icon {
   grid-area: todo-icon;
 }
-
 .todo-project {
   grid-area: todo-project;
 }
@@ -64,7 +90,6 @@ main {
 .todo-priority {
   grid-area: todo-priority;
 }
-
 .todo-active {
   display: grid;
   cursor: pointer;
