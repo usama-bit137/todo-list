@@ -3,6 +3,12 @@
   margin: 0;
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
 @font-face {
   font-family: "Aldine Regular";
   src: url("./fonts/Aldine\ 401\ Regular.otf");
