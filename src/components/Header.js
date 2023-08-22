@@ -1,5 +1,6 @@
 import "../styles/Header.css";
 import logo from "../icons/logo.svg";
+
 function Header() {
   return (
     <header id="header">
